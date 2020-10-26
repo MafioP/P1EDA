@@ -9,7 +9,7 @@ public class Sorter {
     private static DataAnalyzer dataAnalyzer;
 
     public static void main(String[] args) throws IOException {
-        DataReader dataReader = new DataReader("C:/Users/mnky6/Documents/Clase/EDA/personas_va/personas_va.txt");
+        DataReader dataReader = new DataReader("D:/Documentos/mario/clase/EDA/P1EDA/resources/personas_va.txt");
         data = dataReader.readData();
         dataAnalyzer = new DataAnalyzer(data);
         initPopulars();
@@ -55,7 +55,11 @@ public class Sorter {
 
     public static void printArray(Persona[] array) {
         for (int i = 0; i < array.length; i++) {
-            System.out.println(array[i].toString());
+            if (array[i] == null) {
+
+            } else {
+                System.out.println(array[i].toString());
+            }
         }
     }
 }

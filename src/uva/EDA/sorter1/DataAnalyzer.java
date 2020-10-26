@@ -27,24 +27,24 @@ public class DataAnalyzer {
         System.out.println("StartDate " + dateStart + " StopDate " + dateStop);
         Persona[] temp = new Persona[data.length];
         int dataCounter = 0;
+        int intervalCount = 0;
         for(int i = 0; i < temp.length; i++) {
             while(dataCounter < data.length) {
-                System.out.println("Birthday: " + data[dataCounter].getBirthDay());
                 if (dateStart < data[dataCounter].getBirthDay() && data[dataCounter].getBirthDay() < dateStop) {
                     temp[i] = new Persona(data[dataCounter].getName(), data[dataCounter].getGender(),
                             data[dataCounter].getBirthDay(), data[dataCounter].getDeathDay());
-                    System.out.println(temp[i].toString());
                     dataCounter++;
+                    intervalCount++;
                     break;
                 }
                 dataCounter++;
             }
         }
-        Persona[] interval = new Persona[dataCounter];
+        Persona[] interval = new Persona[intervalCount];
         for (int i = 0; i < interval.length; i++) {
             interval[i] = temp[i];
         }
-        System.out.println("Total count " + dataCounter);
+        System.out.println("Total count " + interval.length);
         return interval;
     }
 
@@ -59,6 +59,6 @@ public class DataAnalyzer {
         int months = Integer.parseInt(split[1]);
         int years = Integer.parseInt(split[2]);
         System.out.println("D: " + days + " M: " + months + " Y: " + years);
-        return 367*years - (7*(years+5001+(months-9)/7))/4 + (275*months)/9 + days - 170000;
+        return 367*years - (7*(years+5001+(months-9)/7))/4 + (275*months)/9 + days - 160000;
     }
 }
