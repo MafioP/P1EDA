@@ -9,11 +9,11 @@ public class Sorter {
     private static DataAnalyzer dataAnalyzer;
 
     public static void main(String[] args) throws IOException {
-        DataReader dataReader = new DataReader("D:/Documentos/mario/clase/EDA/P1EDA/resources/personas_va.txt");
+        DataReader dataReader = new DataReader("resources/personas_va.txt");
         data = dataReader.readData();
         dataAnalyzer = new DataAnalyzer(data);
-        initPopulars();
-        addToPopulars();
+        //initPopulars();
+        //addToPopulars();
         //printTop(10);
         Persona[] interval = dataAnalyzer.sortByDate("12/4/1973", "20/5/1980");
         printArray(interval);

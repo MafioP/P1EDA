@@ -53,12 +53,22 @@ public class DataAnalyzer {
         return "";
     }
 
-    private int dateConverter(String date) {
+    public int minDate() {
+        int min= data[0].getBirthDay();
+        for (int i = 0; i<data.length; i++){
+            if(min > data[i].getBirthDay()) {
+                min = data[i].getBirthDay();
+            }
+        }
+        return min;
+    }
+
+    public int dateConverter(String date) {
         String[] split = date.split("/");
         int days = Integer.parseInt(split[0]);
         int months = Integer.parseInt(split[1]);
         int years = Integer.parseInt(split[2]);
         System.out.println("D: " + days + " M: " + months + " Y: " + years);
-        return 367*years - (7*(years+5001+(months-9)/7))/4 + (275*months)/9 + days - 160000;
+        return 367*years - (7*(years+5001+(months-9)/7))/4 + (275*months)/9 + days - 159222;
     }
 }
