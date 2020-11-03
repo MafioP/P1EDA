@@ -3,8 +3,7 @@ package uva.EDA.sorter1;
 import java.io.*;
 
 public class DataReader {
-    private String directory;
-    private int entryCount;
+    private final String directory;
     private Persona[] data;
 
     public DataReader(String directory) {
@@ -14,8 +13,8 @@ public class DataReader {
     public Persona[] readData() throws IOException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(new File(directory)));
-            entryCount = Integer.parseInt(reader.readLine());
-            data = new Persona[1000];
+            int entryCount = Integer.parseInt(reader.readLine());
+            data = new Persona[entryCount];
             long t0, t1, t2;
             t0 = System.nanoTime();
             for (int i = 0; i < data.length; i++) {
@@ -31,5 +30,9 @@ public class DataReader {
             e.printStackTrace();
         }
         return data;
+    }
+
+    public String[] splitDateInput(String dateInterval) {
+       return dateInterval.split(" ");
     }
 }
