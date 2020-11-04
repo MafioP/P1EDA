@@ -44,6 +44,12 @@ public class UserInterface {
         }
     }
     private void printResults() {
+        System.out.println("*********** RESULTADOS ***********");
+        DataResults dataResults = dataAnalyzer.getDataResults();
+        System.out.println("Personas en el intervalo: " + dataResults.getIntervalSize());
+        System.out.println("Nombres distintos en el intervalo: " + dataResults.getTotalNames());
+        System.out.println("Dias en el intervalo: " + dataResults.getIntervalDays());
+
         TimeResults results = dataAnalyzer.getTimeResults();
         System.out.println("Time to get interval: " + results.getExtractIntervalTime() + " sec");
         System.out.println("Time to sort populars: " + results.getPopularSortTime() + " sec");

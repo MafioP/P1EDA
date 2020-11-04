@@ -5,15 +5,18 @@ public class DataAnalyzer {
     private static int START_DAY;
     private int showNames;
     private String userName;
-    private TimeResults timeResults;
+    private final TimeResults timeResults;
+    private DataResults dataResults;
 
     public DataAnalyzer(Persona[] data) {
         this.data = data;
         timeResults = new TimeResults();
+        dataResults = new DataResults();
         setStartDay();
     }
 
     public Popular[] sortPopulars(Persona[] interval) {
+        dataResults.setIntervalSize(interval.length);
         long time = System.nanoTime();
         Popular[] populars = new Popular[interval.length];
         for (int i = 0; i < interval.length; i++) {
@@ -65,6 +68,7 @@ public class DataAnalyzer {
             } else if (populars[i].getName().equals("")) {
                 populars[i].setName(name);
                 populars[i].setCount(1);
+                dataResults.setTotalNames(dataResults.getTotalNames() + 1);
                 break;
             }
         }
@@ -74,6 +78,7 @@ public class DataAnalyzer {
         long time = System.nanoTime();
         int dateStart = dateConverter(startDate) + START_DAY;
         int dateStop = dateConverter(stopDate) + START_DAY;
+        dataResults.setIntervalDays(dateStop - dateStart);
         System.out.println("StartDate " + dateStart + " StopDate " + dateStop);
         Persona[] interval = new Persona[2];        //Partially filled array (2x its size once full)
         int intervalCount = 0;
@@ -86,7 +91,6 @@ public class DataAnalyzer {
                 intervalCount++;
             }
         }
-        System.out.println("Total count = " + intervalCount);
         Persona[] returnInterval = new Persona[intervalCount];
         for (int i = 0; i < intervalCount; i++) {
             returnInterval[i] = interval[i];
@@ -143,5 +147,9 @@ public class DataAnalyzer {
 
     public TimeResults getTimeResults() {
         return timeResults;
+    }
+
+    public DataResults getDataResults() {
+        return dataResults;
     }
 }
