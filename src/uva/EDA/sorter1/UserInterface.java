@@ -38,16 +38,16 @@ public class UserInterface {
             Popular[] populars = dataAnalyzer.sortPopulars(interval);
             printResults();
             System.out.println("Continuar? (S/N) ");
-            if (scanner.nextLine().equals("N")) {
+            if (scanner.nextLine().equalsIgnoreCase("N")) {
                 break;
-            } else if (scanner.nextLine().equals("S")) {
-
-            } else {
-                System.out.println("Entrada no valida");
             }
         }
     }
     private void printResults() {
-
+        TimeResults results = dataAnalyzer.getTimeResults();
+        System.out.println("Time to get interval: " + results.getExtractIntervalTime() + " sec");
+        System.out.println("Time to sort populars: " + results.getPopularSortTime() + " sec");
+        System.out.println("Time to get top populars: " + results.getAddToTopTime() + " sec");
+        System.out.println("Time to find username: " + results.getFindUsernameTime() + " sec");
     }
 }

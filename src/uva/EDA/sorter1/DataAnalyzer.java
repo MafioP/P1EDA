@@ -5,23 +5,24 @@ public class DataAnalyzer {
     private static int START_DAY;
     private int showNames;
     private String userName;
+    private TimeResults timeResults;
+
     public DataAnalyzer(Persona[] data) {
         this.data = data;
+        timeResults = new TimeResults();
         setStartDay();
     }
 
     public Popular[] sortPopulars(Persona[] interval) {
+        long time = System.nanoTime();
         Popular[] populars = new Popular[interval.length];
         for (int i = 0; i < interval.length; i++) {
             populars[i] = new Popular();
         }
         //add all different names to populars
-        long time = System.nanoTime();
         for (int i = 0; i < interval.length; i++) {
             checkPopulars(interval[i].getName(), populars);
         }
-        System.out.println("Elapsed time: " + (System.nanoTime() - time) * 1e-9 + " sec");
-
         time = System.nanoTime();
         //sort populars array
         for (int i = 0; i < populars.length-1; i++) {
@@ -33,15 +34,18 @@ public class DataAnalyzer {
                 }
             }
         }
-        System.out.println("Time to sort: " + (System.nanoTime() - time) * 1e-9 + " sec");
+        timeResults.setPopularSortTime(System.nanoTime() - time);
         //add top populars to another array
+        time = System.nanoTime();
         Popular[] top = new Popular[showNames + 1];
         System.out.println("The top " + getShowNames() + " names are: ");
         for (int i = 0; i < top.length - 1; i++) {
             top[i] = populars[i];
             System.out.println(i + 1 + ". " + top[i].getName() + " with a total count of " + top[i].getCount());
         }
+        timeResults.setAddToTopTime(System.nanoTime() - time);
         //add username to top list
+        time = System.nanoTime();
         for (int i = 0; i < populars.length; i++) {
             if (populars[i].getName().equals(userName)) {
                 top[showNames] = populars[i];
@@ -49,6 +53,7 @@ public class DataAnalyzer {
                 break;
             }
         }
+        timeResults.setFindUsernameTime(System.nanoTime() - time);
         return top;
     }
 
@@ -66,6 +71,7 @@ public class DataAnalyzer {
     }
 
     public Persona[] sortByDate(String startDate, String stopDate) {
+        long time = System.nanoTime();
         int dateStart = dateConverter(startDate) + START_DAY;
         int dateStop = dateConverter(stopDate) + START_DAY;
         System.out.println("StartDate " + dateStart + " StopDate " + dateStop);
@@ -85,6 +91,7 @@ public class DataAnalyzer {
         for (int i = 0; i < intervalCount; i++) {
             returnInterval[i] = interval[i];
         }
+        timeResults.setExtractIntervalTime(System.nanoTime() - time);
         return returnInterval;
     }
 
@@ -132,5 +139,9 @@ public class DataAnalyzer {
 
     public String getUserName() {
         return userName;
+    }
+
+    public TimeResults getTimeResults() {
+        return timeResults;
     }
 }
