@@ -10,10 +10,9 @@ public class UserInterface {
 
     public UserInterface() throws IOException {
         scanner = new Scanner(System.in);
-        init();
     }
 
-    private void init() throws IOException {
+    public void init() throws IOException {
         System.out.println("Introduzca el nombre del fichero: ");
         String filename = scanner.nextLine();
         dataReader = new DataReader("resources/" + filename);
@@ -35,7 +34,7 @@ public class UserInterface {
             System.out.println();
             String[] dates = dataReader.splitDateInput(dateInterval);
             Persona[] interval = dataAnalyzer.sortByDate(dates[0], dates[1]);
-            Popular[] populars = dataAnalyzer.sortPopulars(interval);
+            Popular[] populars = dataAnalyzer.managePopulars(interval);
             printResults();
             System.out.println("Continuar? (S/N) ");
             if (scanner.nextLine().equalsIgnoreCase("N")) {

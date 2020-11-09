@@ -15,28 +15,23 @@ public class DataAnalyzer {
         setStartDay();
     }
 
-    public Popular[] sortPopulars(Persona[] interval) {
+    public Popular[] managePopulars(Persona[] interval) {
         dataResults.setIntervalSize(interval.length);
         long time = System.nanoTime();
-        Popular[] populars = new Popular[interval.length];
-        for (int i = 0; i < interval.length; i++) {
+        Popular[] populars = new Popular[10];       //Partially filled array
+        for (int i = 0; i < populars.length; i++) {
             populars[i] = new Popular();
         }
         //add all different names to populars
         for (int i = 0; i < interval.length; i++) {
+            if (!populars[populars.length-1].getName().equals("")) {
+                populars = increaseSize(populars);
+            }
             checkPopulars(interval[i].getName(), populars);
         }
         time = System.nanoTime();
-        //sort populars array
-        for (int i = 0; i < populars.length-1; i++) {
-            for (int j = populars.length - 1; j > i; j--) {
-                if (populars[j-1].getCount() < populars[j].getCount()) {
-                    Popular temp = populars[j-1];
-                    populars[j-1] = populars[j];
-                    populars[j] = temp;
-                }
-            }
-        }
+        //sort populars array with quicksort algorithm
+        sortPopulars(populars);
         timeResults.setPopularSortTime(System.nanoTime() - time);
         //add top populars to another array
         time = System.nanoTime();
@@ -60,6 +55,17 @@ public class DataAnalyzer {
         return top;
     }
 
+    private Popular[] increaseSize(Popular[] array) {
+        Popular[] temp = new Popular[array.length * 2];
+        for (int i = 0; i < array.length; i++) {
+            temp[i] = array[i];
+        }
+        for (int i = array.length; i < temp.length; i++) {
+            temp[i] = new Popular();
+        }
+        return temp;
+    }
+
     private void checkPopulars(String name, Popular[] populars) {
         for (int i = 0; i < populars.length; i++) {
             if (populars[i].getName().equals(name)) {
@@ -72,6 +78,44 @@ public class DataAnalyzer {
                 break;
             }
         }
+    }
+
+    private void sortPopulars(Popular[] populars) {
+        sortPopularsRec(populars, 0, populars.length-1);
+    }
+
+    private void sortPopularsRec(Popular[] populars, int ini, int end) {
+        if (ini >= end) {
+            return;
+        }
+        int lim = partition(populars, ini, end);
+        if (ini < lim - 1) {
+            sortPopularsRec(populars, ini, lim-1);
+        }
+        if (end > lim){
+            sortPopularsRec(populars, lim, end);
+        }
+    }
+
+    private int partition(Popular[] populars, int ini, int end) {
+        int lim = populars[ini].getCount();      //pivot
+        while (ini <= end) {
+            while(populars[ini].getCount() > lim) {
+                ini++;
+            }
+            while (populars[end].getCount() < lim) {
+                end--;
+            }
+            if (ini <= end) {
+                Popular temp = populars[ini];
+                populars[ini] = populars[end];
+                populars[end] = temp;
+
+                ini++;
+                end--;
+            }
+        }
+        return ini;
     }
 
     public Persona[] sortByDate(String startDate, String stopDate) throws IllegalArgumentException{
