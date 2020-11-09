@@ -6,7 +6,7 @@ public class DataAnalyzer {
     private int showNames;
     private String userName;
     private final TimeResults timeResults;
-    private DataResults dataResults;
+    private final DataResults dataResults;
 
     public DataAnalyzer(Persona[] data) {
         this.data = data;
@@ -74,10 +74,13 @@ public class DataAnalyzer {
         }
     }
 
-    public Persona[] sortByDate(String startDate, String stopDate) {
+    public Persona[] sortByDate(String startDate, String stopDate) throws IllegalArgumentException{
         long time = System.nanoTime();
         int dateStart = dateConverter(startDate) + START_DAY;
         int dateStop = dateConverter(stopDate) + START_DAY;
+        if(dateStop - dateStart < 0) {
+            throw new IllegalArgumentException("Fecha invalida");
+        }
         dataResults.setIntervalDays(dateStop - dateStart);
         System.out.println("StartDate " + dateStart + " StopDate " + dateStop);
         Persona[] interval = new Persona[2];        //Partially filled array (2x its size once full)
