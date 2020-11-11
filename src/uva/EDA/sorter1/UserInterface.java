@@ -16,9 +16,9 @@ public class UserInterface {
     }
 
     public void init() throws IOException {
-        System.out.println("Introduzca el nombre del fichero: ");
+        System.out.println("Introduzca la ruta del fichero: ");
         String filename = scanner.nextLine();
-        dataReader = new DataReader("resources/" + filename);
+        dataReader = new DataReader(filename);
         Persona[] data = dataReader.readData();
         dataAnalyzer = new DataAnalyzer(data);
         System.out.println("Numero de nombres a mostrar: ");
@@ -26,7 +26,6 @@ public class UserInterface {
         scanner.nextLine();
         System.out.println("Nombre del usuario: ");
         dataAnalyzer.setUserName(scanner.nextLine());
-        System.out.println("Empezando la busqueda...");
         startQueryLoop();
     }
 
@@ -34,12 +33,13 @@ public class UserInterface {
         while (true) {
             System.out.println("Introduzca el intervalo de fechas de nacimiento: ");
             String dateInterval = scanner.nextLine();
+            System.out.println("Empezando la busqueda...");
             System.out.println();
             String[] dates = dataReader.splitDateInput(dateInterval);
             Persona[] interval = dataAnalyzer.sortByDate(dates[0], dates[1]);
             Popular[] populars = dataAnalyzer.managePopulars(interval);
             printResults();
-            System.out.println("Continuar? (S/N) ");
+            System.out.println("Quiere continuar? (S/N) ");
             if (scanner.nextLine().equalsIgnoreCase("N")) {
                 break;
             }
@@ -53,9 +53,9 @@ public class UserInterface {
         System.out.println("Dias en el intervalo: " + dataResults.getIntervalDays());
 
         TimeResults results = dataAnalyzer.getTimeResults();
-        System.out.println("Time to get interval: " + results.getExtractIntervalTime() + " sec");
-        System.out.println("Time to sort populars: " + results.getPopularSortTime() + " sec");
-        System.out.println("Time to get top populars: " + results.getAddToTopTime() + " sec");
-        System.out.println("Time to find username: " + results.getFindUsernameTime() + " sec");
+        System.out.println("Tiempo para extraer el intervalo: " + results.getExtractIntervalTime() + " sec");
+        System.out.println("Tiempo para ordenar los nombres populares: " + results.getPopularSortTime() + " sec");
+        System.out.println("Tiempo para encontrar el top: " + results.getAddToTopTime() + " sec");
+        System.out.println("Tiempo para encontrar al usuario: " + results.getFindUsernameTime() + " sec");
     }
 }
