@@ -18,11 +18,10 @@ public class Persona {
     }
 
     public void parseData(String data) {
-        birthDay = data.charAt(0)*10000 + data.charAt(1)*1000 + data.charAt(2)*100
-                + data.charAt(3)*10 + data.charAt(4);
-        deathDay = data.charAt(6)*10000 + data.charAt(7)*1000 + data.charAt(8)*100
-                + data.charAt(9)*10 + data.charAt(10);
-        gender = Integer.parseInt(String.valueOf(data.charAt(12)));
+        String[] split = data.split(" ");
+        birthDay = Integer.parseInt(split[0]);
+        deathDay = Integer.parseInt(split[1]);
+        gender = Integer.parseInt(split[2]);
     }
 
     public void setName(String name) {

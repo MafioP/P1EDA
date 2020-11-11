@@ -2,7 +2,6 @@ package uva.EDA.sorter1;
 
 public class DataAnalyzer {
     private final Persona[] data;
-    private static int START_DAY;
     private int showNames;
     private String userName;
     private final TimeResults timeResults;
@@ -12,7 +11,6 @@ public class DataAnalyzer {
         this.data = data;
         timeResults = new TimeResults();
         dataResults = new DataResults();
-        setStartDay();
     }
 
     public Popular[] managePopulars(Persona[] interval) {
@@ -118,12 +116,12 @@ public class DataAnalyzer {
         return ini;
     }
 
-    public Persona[] sortByDate(String startDate, String stopDate) throws IllegalArgumentException{
+    public Persona[] sortByDate(String startDate, String stopDate) {
         long time = System.nanoTime();
-        int dateStart = dateConverter(startDate) + START_DAY;
-        int dateStop = dateConverter(stopDate) + START_DAY;
+        int dateStart = dateConverter(startDate);
+        int dateStop = dateConverter(stopDate);
         if(dateStop - dateStart < 0) {
-            throw new IllegalArgumentException("Fecha invalida");
+            System.out.println("Fecha no valida");
         }
         dataResults.setIntervalDays(dateStop - dateStart);
         System.out.println("StartDate " + dateStart + " StopDate " + dateStop);
@@ -152,19 +150,6 @@ public class DataAnalyzer {
             temp[i] = array[i];
         }
         return temp;
-    }
-
-    /**
-     * Hallar el dia 1/1/1920 y hacer que sea el dia 0
-     */
-    private void setStartDay() {
-        int min= data[0].getBirthDay();
-        for (int i = 0; i<data.length; i++){
-            if(min > data[i].getBirthDay()) {
-                min = data[i].getBirthDay();
-            }
-        }
-        START_DAY = min;
     }
 
     public int dateConverter(String date) {

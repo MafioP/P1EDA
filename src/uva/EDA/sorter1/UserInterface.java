@@ -1,5 +1,8 @@
 package uva.EDA.sorter1;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.util.Scanner;
 
