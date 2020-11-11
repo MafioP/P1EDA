@@ -38,6 +38,7 @@ public class UserInterface {
             String[] dates = dataReader.splitDateInput(dateInterval);
             Persona[] interval = dataAnalyzer.sortByDate(dates[0], dates[1]);
             Popular[] populars = dataAnalyzer.managePopulars(interval);
+            printTop(populars);
             printResults();
             System.out.println("Quiere continuar? (S/N) ");
             if (scanner.nextLine().equalsIgnoreCase("N")) {
@@ -45,6 +46,15 @@ public class UserInterface {
             }
         }
     }
+
+    private void printTop(Popular[] populars) {
+        for (int i = 0; i < populars.length-1; i++) {
+            System.out.println((i+1) + ": " + populars[i].getName() + " con un total de " + populars[i].getCount());;
+        }
+        System.out.println("Nombre de usuario: \n" + populars[populars.length-1].getName() + " con un total de " +
+                populars[populars.length-1].getCount());
+    }
+
     private void printResults() {
         System.out.println("*********** RESULTADOS ***********");
         DataResults dataResults = dataAnalyzer.getDataResults();
