@@ -2,6 +2,7 @@ package uva.EDA.sorter1;
 
 public class DataAnalyzer {
     private final Persona[] data;
+    private static int START_DAY;
     private int showNames;
     private String userName;
     private final TimeResults timeResults;
@@ -11,6 +12,7 @@ public class DataAnalyzer {
         this.data = data;
         timeResults = new TimeResults();
         dataResults = new DataResults();
+        setStartDay();
     }
 
     public Popular[] managePopulars(Persona[] interval) {
@@ -33,23 +35,26 @@ public class DataAnalyzer {
         timeResults.setPopularSortTime(System.nanoTime() - time);
         //add top populars to another array
         time = System.nanoTime();
-        Popular[] top = new Popular[showNames + 1];
-        System.out.println("The top " + getShowNames() + " names are: ");
-        for (int i = 0; i < top.length - 1; i++) {
-            top[i] = populars[i];
-            System.out.println(i + 1 + ". " + top[i].getName() + " with a total count of " + top[i].getCount());
-        }
+        Popular[] top = findTopPopulars(populars);
         timeResults.setAddToTopTime(System.nanoTime() - time);
         //add username to top list
         time = System.nanoTime();
         for (int i = 0; i < populars.length; i++) {
             if (populars[i].getName().equals(userName)) {
+                populars[i].setName(i + ": " + userName);
                 top[showNames] = populars[i];
-                System.out.println(i + ". " + top[showNames].getName() + " with a total count of " + top[showNames].getCount());
                 break;
             }
         }
         timeResults.setFindUsernameTime(System.nanoTime() - time);
+        return top;
+    }
+
+    private Popular[] findTopPopulars(Popular[] populars) {
+       Popular[] top = new Popular[showNames + 1];
+        for (int i = 0; i < top.length - 1; i++) {
+            top[i] = populars[i];
+        }
         return top;
     }
 
@@ -116,12 +121,12 @@ public class DataAnalyzer {
         return ini;
     }
 
-    public Persona[] sortByDate(String startDate, String stopDate) {
+    public Persona[] sortByDate(String startDate, String stopDate) throws IllegalArgumentException{
         long time = System.nanoTime();
-        int dateStart = dateConverter(startDate);
-        int dateStop = dateConverter(stopDate);
+        int dateStart = dateConverter(startDate) + START_DAY;
+        int dateStop = dateConverter(stopDate) + START_DAY;
         if(dateStop - dateStart < 0) {
-            System.out.println("Fecha no valida");
+            throw new IllegalArgumentException("Fecha invalida");
         }
         dataResults.setIntervalDays(dateStop - dateStart);
         System.out.println("StartDate " + dateStart + " StopDate " + dateStop);
@@ -150,6 +155,19 @@ public class DataAnalyzer {
             temp[i] = array[i];
         }
         return temp;
+    }
+
+    /**
+     * Hallar el dia 1/1/1920 y hacer que sea el dia 0
+     */
+    private void setStartDay() {
+        int min= data[0].getBirthDay();
+        for (int i = 0; i<data.length; i++){
+            if(min > data[i].getBirthDay()) {
+                min = data[i].getBirthDay();
+            }
+        }
+        START_DAY = min;
     }
 
     public int dateConverter(String date) {
