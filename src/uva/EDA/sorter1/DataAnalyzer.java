@@ -45,6 +45,9 @@ public class DataAnalyzer {
                 top[showNames] = populars[i];
                 break;
             }
+            if (i == populars.length-1) {
+                userName = "notFound";
+            }
         }
         timeResults.setFindUsernameTime(System.nanoTime() - time);
         return top;

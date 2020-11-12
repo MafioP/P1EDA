@@ -51,8 +51,12 @@ public class UserInterface {
         for (int i = 0; i < populars.length-1; i++) {
             System.out.println((i+1) + ": " + populars[i].getName() + " con un total de " + populars[i].getCount());;
         }
-        System.out.println("Nombre de usuario: \n" + populars[populars.length-1].getName() + " con un total de " +
-                populars[populars.length-1].getCount());
+        if (dataAnalyzer.getUserName().equalsIgnoreCase("notFound")) {
+            System.out.println("El nombre de usuario no se encontro en el intervalo");
+        } else {
+            System.out.println("Nombre de usuario: \n" + populars[populars.length - 1].getName() + " con un total de " +
+                    populars[populars.length - 1].getCount());
+        }
     }
 
     private void printResults() {
