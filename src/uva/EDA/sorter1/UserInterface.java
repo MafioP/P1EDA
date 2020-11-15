@@ -25,7 +25,7 @@ public class UserInterface {
         dataAnalyzer.setUserName(scanner.nextLine());
         startQueryLoop();
     }
-    
+
     private void startQueryLoop() {
 
         while (true) {
@@ -68,10 +68,10 @@ public class UserInterface {
         System.out.println("Dias en el intervalo: " + dataResults.getIntervalDays() + "\n");
 
         TimeResults results = dataAnalyzer.getTimeResults();
-        System.out.println("Filtrado: " + results.getExtractIntervalTime() + " sec, comps: " + dataResults.getFilterComps());
-        System.out.println("Insercion (Secuencial): " + results.getFindPopularsTime() + " sec, comps: " + dataResults.getInsertionComps());
-        System.out.println("Insercion (Binaria): " + results.getFindPopularsBinaryTime() + " sec, comps: " + dataResults.getBinaryInsertionComps());
-        System.out.println("Ordenacion: " + results.getPopularSortTime() + " sec, comps: " + dataResults.getExtractionComps());
-        System.out.println("Seguimiento: " + results.getFindUsernameTime() + " sec, comps: " + dataResults.getUserNameComps());
+        System.out.println("Filtrado: " + results.getExtractIntervalTime() + " sec, comps: " + dataResults.getFilterComps() + ", moves: " + 0);
+        System.out.println("Insercion (Secuencial): " + results.getFindPopularsTime() + " sec, comps: " + dataResults.getInsertionComps() + ", moves: " + dataResults.getInsertionMoves());
+        System.out.println("Insercion (Binaria): " + results.getFindPopularsBinaryTime() + " sec, comps: " + dataResults.getBinaryInsertionComps() + ", moves: " + dataResults.getBinaryInsertionMoves());
+        System.out.println("Ordenacion: " + results.getPopularSortTime() + " sec, comps: " + dataResults.getExtractionComps() + ", moves: " + dataResults.getExtractionMoves());
+        System.out.println("Seguimiento: " + results.getFindUsernameTime() + " sec, comps: " + dataResults.getUserNameComps() + ", moves: " + 0);
     }
 }

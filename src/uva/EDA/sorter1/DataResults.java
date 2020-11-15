@@ -11,6 +11,7 @@ public class DataResults {
     private int userNameComps;
     private int filterMoves;
     private int insertionMoves;
+    private int binaryInsertionMoves;
     private int extractionMoves;
     private int userNameMoves;
 
@@ -79,8 +80,24 @@ public class DataResults {
         return insertionMoves;
     }
 
+    public void setBinaryInsertionMoves(int binaryInsertionMoves) {
+        this.binaryInsertionMoves = binaryInsertionMoves;
+    }
+
+    public int getBinaryInsertionMoves() {
+        return binaryInsertionMoves;
+    }
+
+    public void addBinaryInsertionMoves() {
+        binaryInsertionMoves++;
+    }
+
     public void setInsertionMoves(int insertionMoves) {
         this.insertionMoves = insertionMoves;
+    }
+
+    public void addInsertionMoves() {
+        insertionMoves++;
     }
 
     public int getExtractionMoves() {
@@ -89,6 +106,10 @@ public class DataResults {
 
     public void setExtractionMoves(int extractionMoves) {
         this.extractionMoves = extractionMoves;
+    }
+
+    public void addExtractionMoves(int add) {
+        extractionMoves += add;
     }
 
     public int getUserNameMoves() {

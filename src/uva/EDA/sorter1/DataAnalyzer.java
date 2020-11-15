@@ -40,8 +40,7 @@ public class DataAnalyzer {
         for (int i = 0; i < populars2.length; i++) {
             populars2[i] = new Popular(EMPTY_NAME, 0);     //uso de EMPTY_NAME dado que tiene un valor ascii mayor que las letras
         }
-        //populars2[0].setName(interval[0].getName());
-        //populars2[0].setCount(1);
+
         dataResults.setBinaryInsertionComps(0);
         for (int i = 0; i < interval.length; i++) {
             if (!populars2[populars2.length-2].getName().equals(EMPTY_NAME)) {
@@ -135,6 +134,7 @@ public class DataAnalyzer {
     private void displace(Popular[] populars, int ini) {
         int end = populars.length-1;
         for (int i = end - 1; i >= ini; i--) {
+            dataResults.addBinaryInsertionMoves();
             populars[i+1] = populars[i];
         }
         populars[ini] = new Popular();
@@ -151,6 +151,7 @@ public class DataAnalyzer {
     private Popular[] increaseSize(Popular[] array) {
         Popular[] temp = new Popular[array.length * 2];
         for (int i = 0; i < array.length; i++) {
+            dataResults.addInsertionMoves();
             temp[i] = array[i];
         }
         for (int i = array.length; i < temp.length; i++) {
@@ -161,6 +162,7 @@ public class DataAnalyzer {
     private Popular[] increaseSize2(Popular[] array) {
         Popular[] temp = new Popular[array.length * 2];
         for (int i = 0; i < array.length; i++) {
+            dataResults.addBinaryInsertionComps();
             temp[i] = array[i];
         }
         for (int i = array.length; i < temp.length; i++) {
@@ -216,6 +218,7 @@ public class DataAnalyzer {
                 end--;
             }
             if (ini <= end) {
+                dataResults.addExtractionMoves(3);
                 Popular temp = populars[ini];
                 populars[ini] = populars[end];
                 populars[end] = temp;
@@ -240,6 +243,7 @@ public class DataAnalyzer {
                 interval = increaseSize(interval);
             }
             if (data[i].getBirthDay() > dateStart && data[i].getBirthDay() < dateStop) {
+                dataResults.addInsertionMoves();
                 interval[intervalCount] = data[i];
                 intervalCount++;
             }
@@ -248,6 +252,7 @@ public class DataAnalyzer {
         }
         Persona[] returnInterval = new Persona[intervalCount];
         for (int i = 0; i < intervalCount; i++) {
+            dataResults.addInsertionMoves();
             returnInterval[i] = interval[i];
         }
         timeResults.setExtractIntervalTime(System.nanoTime() - time);
@@ -257,6 +262,7 @@ public class DataAnalyzer {
     private Persona[] increaseSize(Persona[] array) {
         Persona[] temp = new Persona[array.length * 2];
         for (int i = 0; i < array.length; i++) {
+            dataResults.addInsertionMoves();
             temp[i] = array[i];
         }
         return temp;
