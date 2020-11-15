@@ -8,6 +8,12 @@ public class Popular {
         this.name = "";
         this.count = 0;
     }
+
+    public Popular(String name, int count) {
+        this.name = name;
+        this.count = count;
+    }
+
     public void add() {
         count++;
     }
@@ -30,9 +36,6 @@ public class Popular {
 
     @Override
     public String toString() {
-        return "Popular{" +
-                "name='" + name + '\'' +
-                ", count=" + count +
-                '}';
+        return  name + ", con un total de " + count;
     }
 }

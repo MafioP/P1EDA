@@ -2,19 +2,11 @@ package uva.EDA.sorter1;
 
 public class TimeResults {
 
-    private long readDataTime;
     private long extractIntervalTime;
+    private long findPopularsTime;
+    private long findPopularsBinaryTime;
     private long popularSortTime;
     private long findUsernameTime;
-    private long addToTopTime;
-
-    public long getReadDataTime() {
-        return readDataTime;
-    }
-
-    public void setReadDataTime(long data) {
-        readDataTime = data;
-    }
 
     public double getExtractIntervalTime() {
         return extractIntervalTime * 1e-9;
@@ -22,6 +14,22 @@ public class TimeResults {
 
     public void setExtractIntervalTime(long extractIntervalTime) {
         this.extractIntervalTime = extractIntervalTime;
+    }
+
+    public void setFindPopularsTime(long findPopularsTime) {
+        this.findPopularsTime = findPopularsTime;
+    }
+
+    public double getFindPopularsTime() {
+        return findPopularsTime * 1e-9;
+    }
+
+    public void setFindPopularsBinaryTime(long popularBinarySortTime) {
+        this.findPopularsBinaryTime = popularBinarySortTime;
+    }
+
+    public double getFindPopularsBinaryTime() {
+        return findPopularsBinaryTime * 1e-9;
     }
 
     public double getPopularSortTime() {
@@ -38,13 +46,5 @@ public class TimeResults {
 
     public void setFindUsernameTime(long findUsernameTime) {
         this.findUsernameTime = findUsernameTime;
-    }
-
-    public double getAddToTopTime() {
-        return addToTopTime * 1e-9;
-    }
-
-    public void setAddToTopTime(long addToTopTime) {
-        this.addToTopTime = addToTopTime;
     }
 }
